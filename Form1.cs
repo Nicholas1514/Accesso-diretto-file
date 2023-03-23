@@ -49,6 +49,32 @@ namespace accesso_diretto_file
             }
         }
 
-     
+        public void Cancellazione(string a)
+        {
+            using(StreamReader sr = File.OpenText(nfile))
+            {
+                string x;
+                using(StreamWriter temp = new StreamWriter("temporaneo.txt"))
+                {
+                    while((x = sr.ReadLine()) != null)
+                    {
+ 
+                        if(x.Contains(a) == false)
+                        {
+                            temp.WriteLine(x);
+                        }
+                    }
+                }
+            }
+            File.Delete(nfile);
+            File.Move("temporaneo.txt", nfile);
+
+        
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Cancellazione(textBox3.Text);
+        }
     }
 }
